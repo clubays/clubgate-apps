@@ -1,0 +1,10 @@
+{
+  "$schema": "https://asset-ark.clubays.com/schemas/clubgate/v1.json",
+  "schemaVersion": 1,
+  "id": "club-fundapp",
+  "name": "Club Fundapp",
+  "version": "0.1.5",
+  "description": "A Clubays application, clubgate",
+  "entry": "index.html",
+  "scopes": ["user.read", "profile.read"]
+}
