@@ -3,7 +3,7 @@
   "schemaVersion": 1,
   "id": "club-fundapp",
   "name": "Club Fundapp",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "A Clubays application, clubgate",
   "entry": "index.html",
   "scopes": ["user.read", "profile.read"]

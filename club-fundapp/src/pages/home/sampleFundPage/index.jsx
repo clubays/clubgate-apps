@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { fundRecords2526, fundRecords2627 } from "@/data/fundData";
 import FundPage from "./fundPage";
+import clubgate from "../../../../clubgate.json";
 
 const SESSIONS = {
   "2026 - 2027": fundRecords2627,
@@ -18,7 +19,7 @@ export const SampleFundPage = () => {
       <FundPage
         key={session}
         session={session}
-        version={`0.1.3`}
+        version={clubgate.version}
         fundRecords={SESSIONS[session]}
       />
 

@@ -1,4 +1,5 @@
 export const fundRecords2627 = [
+  // october
   {
     date: "2026-10-27",
     entries: [
@@ -8,6 +9,18 @@ export const fundRecords2627 = [
     notes: {
       title: "Exp.",
       description: "Two balls are bought.",
+    },
+  },
+  // november
+  {
+    date: "2026-11-03",
+    entries: [
+      { title: "Sandip Pal", amount: 65 },
+      { title: "Guru Ball * 1pcs", amount: -65 },
+    ],
+    notes: {
+      title: "Exp.",
+      description: "One ball is bought.",
     },
   },
 ];
