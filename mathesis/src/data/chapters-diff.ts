@@ -1,5 +1,6 @@
-// Chapters 1 & 2 Curriculum Data
-export const CHAPTERS_DIFF = [
+import { Chapter } from "../types/curriculum";
+
+export const CHAPTERS_DIFF: Chapter[] = [
   {
     id: "diff",
     no: 1,
@@ -147,7 +148,7 @@ As $Q$ slides along the curve toward $P$, $h \to 0$. The secant line tilts until
         level: "Beginner",
         widget: {
           id: "tangent",
-          preset: "x2",
+          props: { preset: "x2" },
           caption:
             "Drag along the curve to see the tangent slope match the derivative rule.",
         },
@@ -312,8 +313,8 @@ $$= \sin x(0) + \cos x(1) = \cos x$$`,
             title: "Differentiate 3eˣ − 2 sin x",
             steps: [
               "$(3e^x)' = 3(e^x)' = 3e^x$.",
-              "$(-2\sin x)' = -2(\cos x)$.",
-              "Combine: $3e^x - 2\cos x$.",
+              "$(-2\\sin x)' = -2(\\cos x)$.",
+              "Combine: $3e^x - 2\\cos x$.",
             ],
             answer: String.raw`3e^x - 2\cos x`,
           },
@@ -321,9 +322,9 @@ $$= \sin x(0) + \cos x(1) = \cos x$$`,
             type: "example",
             title: "Differentiate 2ˣ",
             steps: [
-              "Recall that $2^x = e^{x \ln 2}$.",
-              "By the exponential rule for general base $a$: $(a^x)' = a^x \ln a$.",
-              "Substitute $a = 2$: $2^x \ln 2$.",
+              "Recall that $2^x = e^{x \\ln 2}$.",
+              "By the exponential rule for general base $a$: $(a^x)' = a^x \\ln a$.",
+              "Substitute $a = 2$: $2^x \\ln 2$.",
             ],
             answer: String.raw`2^x \ln 2`,
           },
@@ -349,7 +350,7 @@ $$= \sin x(0) + \cos x(1) = \cos x$$`,
             type: "practice",
             items: [
               {
-                q: "Differentiate $5\cos x + \ln x$.",
+                q: "Differentiate $5\\cos x + \\ln x$.",
                 steps: [
                   "$5(-\\sin x) + \\frac{1}{x} = -5\\sin x + \\frac{1}{x}$.",
                 ],
@@ -379,9 +380,9 @@ $$= \sin x(0) + \cos x(1) = \cos x$$`,
           {
             type: "recap",
             items: [
-              "Exponential: $(e^x)' = e^x$, $(a^x)' = a^x \ln a$.",
-              "Logarithmic: $(\ln x)' = 1/x$.",
-              "Trigonometric: $(\sin x)' = \cos x$, $(\cos x)' = -\sin x$.",
+              "Exponential: $(e^x)' = e^x$, $(a^x)' = a^x \\ln a$.",
+              "Logarithmic: $(\\ln x)' = 1/x$.",
+              "Trigonometric: $(\\sin x)' = \\cos x$, $(\\cos x)' = -\\sin x$.",
             ],
           },
         ],
@@ -405,7 +406,7 @@ $$= \sin x(0) + \cos x(1) = \cos x$$`,
           },
           {
             type: "p",
-            x: "Think of the area of an expanding rectangle with sides $u$ and $v$: $\\text{Area} = uv$. If both sides grow by small increments $\\Delta u$ and $\\Delta v$, the new area gains two strips: one strip of area $u \\Delta v$ and another of area $v \\Delta u$. Thus, the rate of change is $u'v + uv'.",
+            x: "Think of the area of an expanding rectangle with sides $u$ and $v$: $\\text{Area} = uv$. If both sides grow by small increments $\\Delta u$ and $\\Delta v$, the new area gains two strips: one strip of area $u \\Delta v$ and another of area $v \\Delta u$. Thus, the rate of change is $u'v + uv'$.",
           },
           {
             type: "callout",
@@ -665,7 +666,7 @@ $$\lim_{\Delta x \to 0} \frac{\Delta y}{\Delta x} = \left(\lim_{\Delta u \to 0} 
           },
           {
             type: "p",
-            x: "No. Implicit differentiation treats $y$ as an implicit function of $x$. We differentiate both sides of the equation with respect to $x$, using the chain rule on any term containing $y$ (giving a factor of $y'$), and then algebraically isolate $y'.",
+            x: "No. Implicit differentiation treats $y$ as an implicit function of $x$. We differentiate both sides of the equation with respect to $x$, using the chain rule on any term containing $y$ (giving a factor of $y'$), and then algebraically isolate $y'$.",
           },
           {
             type: "callout",
@@ -704,9 +705,9 @@ $$\frac{d}{dx}[x^2] + \frac{d}{dx}[y^2] = \frac{d}{dx}[25] \implies 2x + 2y y' =
             type: "example",
             title: "Differentiate x³ + y³ = 6xy (Folium of Descartes)",
             steps: [
-              "Differentiate left side: $3x^2 + 3y^2 y'.",
-              "Differentiate right side using product rule: $6(1 \\cdot y + x \\cdot y') = 6y + 6x y'.",
-              "Equate: $3x^2 + 3y^2 y' = 6y + 6x y'. Divide by 3: $x^2 + y^2 y' = 2y + 2x y'.",
+              "Differentiate left side: $3x^2 + 3y^2 y'$.",
+              "Differentiate right side using product rule: $6(1 \\cdot y + x \\cdot y') = 6y + 6x y'$.",
+              "Equate: $3x^2 + 3y^2 y' = 6y + 6x y'$. Divide by 3: $x^2 + y^2 y' = 2y + 2x y'$.",
               "Group $y'$ terms: $y'(y^2 - 2x) = 2y - x^2 \\implies y' = \\frac{2y - x^2}{y^2 - 2x}$.",
             ],
             answer: String.raw`y' = \frac{2y - x^2}{y^2 - 2x}`,
@@ -916,7 +917,7 @@ $$a(t) = v'(t) = \frac{d}{dt}\left[\frac{ds}{dt}\right] = \frac{d^2 s}{dt^2}$$`,
         level: "Beginner",
         widget: {
           id: "tangent",
-          preset: "x2",
+          props: { preset: "x2" },
           caption:
             "The tangent line touches the curve; the normal line intersects perpendicularly.",
         },

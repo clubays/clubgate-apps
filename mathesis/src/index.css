@@ -1,1 +1,88 @@
 @import "tailwindcss";
+
+:root {
+  --bg: #f6f3ea;
+  --panel: #fffdf7;
+  --line: #d9d3c0;
+  --ink: #14213d;
+  --muted: #5b6477;
+  --accent: #c2371d;
+  --accent-ink: #ffffff;
+  --accent-tint: #f6dfd7;
+  --chip: #ebe6d6;
+  --grid: rgba(52, 90, 140, 0.1);
+  --grid-strong: rgba(52, 90, 140, 0.18);
+  --c-f: #1d5fa8;
+  --c-d: #2a7f62;
+  --c-dd: #b7791f;
+  --c-area: rgba(29, 95, 168, 0.18);
+  --shadow: 20, 33, 61;
+  --serif: "STIX Two Text", "Iowan Old Style", Georgia, serif;
+  --sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --ease: cubic-bezier(0.22, 0.8, 0.24, 1);
+}
+
+html[data-theme="board"] {
+  --bg: #13201d;
+  --panel: #192a26;
+  --line: #2f4741;
+  --ink: #eef1e6;
+  --muted: #9bb0a6;
+  --accent: #ff8a5c;
+  --accent-ink: #13201d;
+  --accent-tint: #3a2a22;
+  --chip: #223631;
+  --grid: rgba(238, 241, 230, 0.06);
+  --grid-strong: rgba(238, 241, 230, 0.12);
+  --c-f: #7cc4ff;
+  --c-d: #8ee0a8;
+  --c-dd: #ffd166;
+  --c-area: rgba(124, 196, 255, 0.2);
+  --shadow: 0, 0, 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--sans);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+  transition:
+    background-color 0.4s var(--ease),
+    color 0.4s var(--ease);
+  overflow-x: hidden;
+}
+
+.font-serif {
+  font-family: var(--serif);
+}
+
+.font-mono {
+  font-family: var(--mono);
+}
+
+.font-sans {
+  font-family: var(--sans);
+}
+
+/* KaTeX tweaks */
+.katex-display {
+  margin: 16px 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 0;
+}

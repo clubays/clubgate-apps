@@ -1,25 +1,22 @@
+import tailwindcss from "@tailwindcss/vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
 import { defineConfig } from "vite";
 
-const stripCrossorigin = () => ({
-  name: "strip-crossorigin",
-  transformIndexHtml: (html) => html.replace(/ crossorigin/g, ""),
-});
-
-const woff2Only = () => ({
-  name: "woff2-only",
-  generateBundle(_, bundle) {
-    for (const f of Object.keys(bundle)) {
-      if (/\.(woff|ttf)$/.test(f)) delete bundle[f];
-    }
-  },
-});
-
-export default defineConfig({
-  base: "./",
-  plugins: [stripCrossorigin(), woff2Only()],
-  build: {
-    assetsInlineLimit: 0,
-    cssCodeSplit: false,
-    chunkSizeWarningLimit: 1500,
-  },
+export default defineConfig(() => {
+  return {
+    plugins: [react(), tailwindcss()],
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "."),
+      },
+    },
+    server: {
+      // HMR is disabled in AI Studio via DISABLE_HMR env var.
+      // Do not modify—file watching is disabled to prevent flickering during agent edits.
+      hmr: process.env.DISABLE_HMR !== "true",
+      // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
+      watch: process.env.DISABLE_HMR === "true" ? null : {},
+    },
+  };
 });

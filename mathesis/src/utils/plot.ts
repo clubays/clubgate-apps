@@ -1,22 +1,52 @@
-// Plot engine for Mathesis canvas figures
+export interface PlotOptions {
+  xmin?: number;
+  xmax?: number;
+  ymin?: number;
+  ymax?: number;
+  equal?: boolean;
+  showGrid?: boolean;
+  showAxes?: boolean;
+}
+
+export interface Bounds {
+  xmin: number;
+  xmax: number;
+  ymin: number;
+  ymax: number;
+}
+
 export class Plot {
-  constructor(container, options = {}) {
+  container: HTMLElement;
+  options: Required<PlotOptions>;
+  initialBounds: Bounds;
+  bounds: Bounds;
+  canvas: HTMLCanvasElement;
+  ctx: CanvasRenderingContext2D;
+  isDragging = false;
+  dragStart = { x: 0, y: 0 };
+  boundsStart: Bounds;
+  width = 0;
+  height = 0;
+  dpr = 1;
+  private _raf: number | null = null;
+  private resizeObserver: ResizeObserver | null = null;
+  private renderFn: ((p: Plot) => void) | null = null;
+
+  constructor(container: HTMLElement | string, options: PlotOptions = {}) {
     this.container =
       typeof container === "string"
-        ? document.querySelector(container)
+        ? (document.querySelector(container) as HTMLElement)
         : container;
-    this.options = Object.assign(
-      {
-        xmin: -5,
-        xmax: 5,
-        ymin: -5,
-        ymax: 5,
-        equal: false,
-        showGrid: true,
-        showAxes: true,
-      },
-      options,
-    );
+
+    this.options = {
+      xmin: options.xmin ?? -5,
+      xmax: options.xmax ?? 5,
+      ymin: options.ymin ?? -5,
+      ymax: options.ymax ?? 5,
+      equal: options.equal ?? false,
+      showGrid: options.showGrid ?? true,
+      showAxes: options.showAxes ?? true,
+    };
 
     this.initialBounds = {
       xmin: this.options.xmin,
@@ -25,14 +55,11 @@ export class Plot {
       ymax: this.options.ymax,
     };
     this.bounds = { ...this.initialBounds };
+    this.boundsStart = { ...this.bounds };
 
     this.canvas = document.createElement("canvas");
-    this.ctx = this.canvas.getContext("2d");
+    this.ctx = this.canvas.getContext("2d")!;
     this.container.appendChild(this.canvas);
-
-    this.isDragging = false;
-    this.dragStart = { x: 0, y: 0 };
-    this.boundsStart = { ...this.bounds };
 
     this.initEvents();
     this.resize();
@@ -46,7 +73,9 @@ export class Plot {
       this.isDragging = true;
       this.dragStart = { x: e.clientX, y: e.clientY };
       this.boundsStart = { ...this.bounds };
-      this.canvas.setPointerCapture(e.pointerId);
+      try {
+        this.canvas.setPointerCapture(e.pointerId);
+      } catch (_) {}
     });
 
     this.canvas.addEventListener("pointermove", (e) => {
@@ -55,8 +84,8 @@ export class Plot {
       const dy = e.clientY - this.dragStart.y;
       const xSpan = this.boundsStart.xmax - this.boundsStart.xmin;
       const ySpan = this.boundsStart.ymax - this.boundsStart.ymin;
-      const worldDx = (dx / this.width) * xSpan;
-      const worldDy = (dy / this.height) * ySpan;
+      const worldDx = (dx / (this.width || 1)) * xSpan;
+      const worldDy = (dy / (this.height || 1)) * ySpan;
 
       this.bounds.xmin = this.boundsStart.xmin - worldDx;
       this.bounds.xmax = this.boundsStart.xmax - worldDx;
@@ -66,7 +95,7 @@ export class Plot {
       this.requestDraw();
     });
 
-    const stopDrag = (e) => {
+    const stopDrag = (e: PointerEvent) => {
       if (this.isDragging) {
         this.isDragging = false;
         try {
@@ -119,13 +148,13 @@ export class Plot {
 
     this.canvas.width = Math.floor(this.width * this.dpr);
     this.canvas.height = Math.floor(this.height * this.dpr);
-    this.canvas.style.width = this.width + "px";
-    this.canvas.style.height = this.height + "px";
+    this.canvas.style.width = `${this.width}px`;
+    this.canvas.style.height = `${this.height}px`;
 
     this.requestDraw();
   }
 
-  toScreen(wx, wy) {
+  toScreen(wx: number, wy: number) {
     let xmin = this.bounds.xmin,
       xmax = this.bounds.xmax;
     let ymin = this.bounds.ymin,
@@ -134,7 +163,7 @@ export class Plot {
     if (this.options.equal) {
       const wSpan = xmax - xmin;
       const hSpan = ymax - ymin;
-      const aspect = this.width / this.height;
+      const aspect = (this.width || 1) / (this.height || 1);
       if (wSpan / hSpan < aspect) {
         const extra = (hSpan * aspect - wSpan) / 2;
         xmin -= extra;
@@ -151,7 +180,7 @@ export class Plot {
     return { x: sx, y: sy };
   }
 
-  toWorld(sx, sy) {
+  toWorld(sx: number, sy: number) {
     let xmin = this.bounds.xmin,
       xmax = this.bounds.xmax;
     let ymin = this.bounds.ymin,
@@ -160,7 +189,7 @@ export class Plot {
     if (this.options.equal) {
       const wSpan = xmax - xmin;
       const hSpan = ymax - ymin;
-      const aspect = this.width / this.height;
+      const aspect = (this.width || 1) / (this.height || 1);
       if (wSpan / hSpan < aspect) {
         const extra = (hSpan * aspect - wSpan) / 2;
         xmin -= extra;
@@ -172,8 +201,8 @@ export class Plot {
       }
     }
 
-    const wx = xmin + (sx / this.width) * (xmax - xmin);
-    const wy = ymax - (sy / this.height) * (ymax - ymin);
+    const wx = xmin + (sx / (this.width || 1)) * (xmax - xmin);
+    const wy = ymax - (sy / (this.height || 1)) * (ymax - ymin);
     return { x: wx, y: wy };
   }
 
@@ -181,10 +210,12 @@ export class Plot {
     const s = getComputedStyle(document.documentElement);
     return {
       bg: s.getPropertyValue("--bg").trim() || "#f6f3ea",
+      panel: s.getPropertyValue("--panel").trim() || "#fffdf7",
       line: s.getPropertyValue("--line").trim() || "#d9d3c0",
       ink: s.getPropertyValue("--ink").trim() || "#14213d",
       muted: s.getPropertyValue("--muted").trim() || "#5b6477",
       accent: s.getPropertyValue("--accent").trim() || "#c2371d",
+      accentTint: s.getPropertyValue("--accent-tint").trim() || "#f6dfd7",
       grid: s.getPropertyValue("--grid").trim() || "rgba(52,90,140,.10)",
       gridStrong:
         s.getPropertyValue("--grid-strong").trim() || "rgba(52,90,140,.18)",
@@ -203,7 +234,7 @@ export class Plot {
     });
   }
 
-  setRender(fn) {
+  setRender(fn: (p: Plot) => void) {
     this.renderFn = fn;
     this.requestDraw();
   }
@@ -314,7 +345,7 @@ export class Plot {
     }
   }
 
-  curve(fn, color, width = 2, stepPx = 1.5) {
+  curve(fn: (x: number) => number, color: string, width = 2, stepPx = 1.5) {
     const ctx = this.ctx;
     ctx.save();
     ctx.strokeStyle = color;
@@ -324,12 +355,12 @@ export class Plot {
     ctx.beginPath();
 
     let started = false;
-    let prevY = null;
+    let prevY: number | null = null;
     const maxJump = this.height * 1.5;
 
     for (let sx = 0; sx <= this.width; sx += stepPx) {
       const wx = this.toWorld(sx, 0).x;
-      let wy;
+      let wy: number;
       try {
         wy = fn(wx);
       } catch (_) {
@@ -359,7 +390,15 @@ export class Plot {
     ctx.restore();
   }
 
-  line(x1, y1, x2, y2, color, width = 1.5, dashed = []) {
+  line(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    color: string,
+    width = 1.5,
+    dashed: number[] = [],
+  ) {
     const ctx = this.ctx;
     ctx.save();
     ctx.strokeStyle = color;
@@ -384,7 +423,15 @@ export class Plot {
     ctx.restore();
   }
 
-  segment(x1, y1, x2, y2, color, width = 1.5, dashed = []) {
+  segment(
+    x1: number,
+    y1: number,
+    x2: number,
+    y2: number,
+    color: string,
+    width = 1.5,
+    dashed: number[] = [],
+  ) {
     const ctx = this.ctx;
     ctx.save();
     ctx.strokeStyle = color;
@@ -400,7 +447,7 @@ export class Plot {
     ctx.restore();
   }
 
-  dot(x, y, r = 4.5, color, ringColor = "#ffffff") {
+  dot(x: number, y: number, r = 4.5, color: string = "#c2371d", ringColor = "#ffffff") {
     const ctx = this.ctx;
     const p = this.toScreen(x, y);
     ctx.save();
@@ -416,7 +463,14 @@ export class Plot {
     ctx.restore();
   }
 
-  fillBetween(f, g, a, b, color, stepPx = 1.5) {
+  fillBetween(
+    f: (x: number) => number,
+    g: ((x: number) => number) | null,
+    a: number,
+    b: number,
+    color: string,
+    stepPx = 1.5,
+  ) {
     const ctx = this.ctx;
     const pA = this.toScreen(a, 0);
     const pB = this.toScreen(b, 0);
@@ -454,7 +508,7 @@ export class Plot {
     ctx.restore();
   }
 
-  rect(x, y, w, h, fill, stroke) {
+  rect(x: number, y: number, w: number, h: number, fill?: string | null, stroke?: string | null) {
     const p1 = this.toScreen(x, y + h);
     const p2 = this.toScreen(x + w, y);
     const rx = Math.min(p1.x, p2.x);
@@ -476,7 +530,20 @@ export class Plot {
     ctx.restore();
   }
 
-  label(text, x, y, opts = {}) {
+  label(
+    text: string,
+    x: number,
+    y: number,
+    opts: {
+      font?: string;
+      color?: string;
+      align?: CanvasTextAlign;
+      baseline?: CanvasTextBaseline;
+      bg?: string;
+      dx?: number;
+      dy?: number;
+    } = {},
+  ) {
     const ctx = this.ctx;
     const c = this.getColors();
     const p = this.toScreen(x, y);
@@ -491,8 +558,8 @@ export class Plot {
       const pad = 3;
       ctx.fillStyle = opts.bg;
       ctx.fillRect(
-        p.x - pad,
-        p.y - 12 - pad,
+        p.x - pad + (opts.dx || 0),
+        p.y - 12 - pad + (opts.dy || 0),
         metrics.width + pad * 2,
         14 + pad * 2,
       );

@@ -1,5 +1,6 @@
-// Chapters 3, 4, 5-8 Curriculum Data
-export const CHAPTERS_INT = [
+import { Chapter } from "../types/curriculum";
+
+export const CHAPTERS_INT: Chapter[] = [
   {
     id: "integration",
     no: 3,
@@ -446,7 +447,7 @@ Because $f$ is uniformly continuous on $[a, b]$, $\lim_{n\to\infty}(U_n - L_n) =
             title: "Riemann sums for ∫₀² x² dx with n = 4",
             steps: [
               "Width of each subinterval: $\\Delta x = \\frac{2 - 0}{4} = 0.5$. Grid points: $0, 0.5, 1.0, 1.5, 2.0$.",
-              "Left sum: $0.5[f(0) + f(0.5) + f(1.0) + f(1.5)] = 0.5[0 + 0.25 + 1 + 2.25] = 0.5(3.5) = 1.75$.",
+              "Left sum: $0.5[f(0) + f(0.5) + f(1.0) + f(1.5)] = 0.5[0.5 + 0.25 + 1 + 2.25] = 0.5(3.5) = 1.75$.",
               "Right sum: $0.5[f(0.5) + f(1.0) + f(1.5) + f(2.0)] = 0.5[0.25 + 1 + 2.25 + 4] = 0.5(7.5) = 3.75$.",
               "Midpoint sum: midpoints are $0.25, 0.75, 1.25, 1.75$. Sum $= 0.5[0.0625 + 0.5625 + 1.5625 + 3.0625] = 0.5(5.25) = 2.625$.",
               "The exact value is $\\left[\\frac{x^3}{3}\\right]_0^2 = \\frac{8}{3} \\approx 2.667$.",
@@ -1018,6 +1019,8 @@ If $p \le 1$, $t^{1-p}$ grows without bound (or $\ln t \to \infty$ for $p=1$), s
       {
         id: "soon",
         title: "Coming soon",
+        minutes: 0,
+        level: "Intermediate",
         blocks: [
           {
             type: "p",
@@ -1038,6 +1041,8 @@ If $p \le 1$, $t^{1-p}$ grows without bound (or $\ln t \to \infty$ for $p=1$), s
       {
         id: "soon",
         title: "Coming soon",
+        minutes: 0,
+        level: "Advanced",
         blocks: [
           {
             type: "p",
@@ -1058,6 +1063,8 @@ If $p \le 1$, $t^{1-p}$ grows without bound (or $\ln t \to \infty$ for $p=1$), s
       {
         id: "soon",
         title: "Coming soon",
+        minutes: 0,
+        level: "Advanced",
         blocks: [
           {
             type: "p",
@@ -1078,6 +1085,8 @@ If $p \le 1$, $t^{1-p}$ grows without bound (or $\ln t \to \infty$ for $p=1$), s
       {
         id: "soon",
         title: "Coming soon",
+        minutes: 0,
+        level: "Beginner",
         blocks: [
           {
             type: "p",
