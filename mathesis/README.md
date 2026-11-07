@@ -1,21 +1,20 @@
-# My Clubgate
+<div align="center">
+<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+</div>
 
-## Develop
+# Run and deploy your AI Studio app
 
-```bash
-pnpm install
-pnpm dev        # terminal 1: your app on :5174
-pnpm emulator   # terminal 2: mock Clubays host on :5199
-```
+This contains everything you need to run your app locally.
 
-Open the URL the emulator prints. Edit `scopes` in the emulator's mock data to test `scope_denied`.
+View your app in AI Studio: https://ai.studio/apps/6a13e057-7527-4521-a757-b172fc522927
 
-## Package
+## Run Locally
 
-```bash
-pnpm build
-pnpm package    # creates <id>-<version>.zip
-```
+**Prerequisites:**  Node.js
 
-Upload the zip to Clubays. Bump `version` in `clubgate.json` for every release.
-Only request the scopes you need.
+
+1. Install dependencies:
+   `npm install`
+2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+3. Run the app:
+   `npm run dev`

@@ -1,8 +1,9 @@
 import { CHAPTERS_DIFF } from "./chapters-diff";
 import { CHAPTERS_INT } from "./chapters-int";
+import { CHAPTERS_ADV } from "./chapters-advanced";
 import { Chapter, FlatLessonItem } from "../types/curriculum";
 
-export const CHAPTERS: Chapter[] = [...CHAPTERS_DIFF, ...CHAPTERS_INT];
+export const CHAPTERS: Chapter[] = [...CHAPTERS_DIFF, ...CHAPTERS_INT, ...CHAPTERS_ADV];
 
 export function getFlatLessons(): FlatLessonItem[] {
   const list: FlatLessonItem[] = [];

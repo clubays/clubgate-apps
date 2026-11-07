@@ -10,7 +10,7 @@ export const AppLayout: React.FC = () => {
   const { mobileMenuOpen, setMobileMenuOpen, toastMessage } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col overflow-hidden">
+    <div className="min-h-screen flex flex-col">
       <Topbar />
 
       {/* Main Grid Shell */}

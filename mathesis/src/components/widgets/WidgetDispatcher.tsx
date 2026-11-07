@@ -13,6 +13,10 @@ import { RiemannWidget } from "./RiemannWidget";
 import { FTCWidget } from "./FTCWidget";
 import { AreaWidget } from "./AreaWidget";
 import { RevolveWidget } from "./RevolveWidget";
+import { SlopeFieldWidget } from "./SlopeFieldWidget";
+import { TaylorSeriesWidget } from "./TaylorSeriesWidget";
+import { GradientWidget } from "./GradientWidget";
+import { MatrixTransformWidget } from "./MatrixTransformWidget";
 
 interface WidgetDispatcherProps {
   id: string;
@@ -49,6 +53,14 @@ export const WidgetDispatcher: React.FC<WidgetDispatcherProps> = ({ id, props = 
       return <AreaWidget {...props} />;
     case "revolve":
       return <RevolveWidget {...props} />;
+    case "slopefield":
+      return <SlopeFieldWidget {...props} />;
+    case "taylor":
+      return <TaylorSeriesWidget {...props} />;
+    case "gradient":
+      return <GradientWidget {...props} />;
+    case "matrix":
+      return <MatrixTransformWidget {...props} />;
     default:
       return null;
   }
