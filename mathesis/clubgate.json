@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "mathesis",
   "name": "Mathesis — Interactive Calculus Atlas",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Learn calculus chapter by chapter: differentiation, integration and their applications, with interactive graphs you can drag, slide and play with.",
   "entry": "index.html",
   "scopes": ["user.read", "profile.read"]
