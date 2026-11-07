@@ -1,0 +1,50 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+export const en = {
+  appName: 'Bioverse',
+  tagline: 'Interactive 3D Biology Lab & Course',
+  heroTitle: 'Learn Biology in 3D',
+  heroSubtitle: 'Manipulate molecules, probe the cell, and trigger live neural action potentials in real-time procedural simulations.',
+  startLearning: 'Start Course',
+  continueLearning: 'Continue Where You Left Off',
+  browseLessons: 'Browse All Lessons',
+  modelsBrowser: '3D Models Catalog',
+  allLessons: 'Lessons',
+  glossary: 'Glossary',
+  settings: 'Settings',
+  searchPlaceholder: 'Search lessons, organelles, terms (Press / or ⌘K)...',
+  exploreTab: 'Explore 3D',
+  learnTab: 'Learn',
+  quizTab: 'Quiz',
+  wordsTab: 'Terms',
+  markComplete: 'Mark Completed',
+  completed: 'Completed',
+  nextLesson: 'Next Lesson',
+  prevLesson: 'Previous Lesson',
+  nextStep: 'Next Step',
+  prevStep: 'Previous Step',
+  stepOf: 'Step {current} of {total}',
+  runSimulation: 'Run Simulation',
+  resetSimulation: 'Reset',
+  play: 'Play',
+  pause: 'Pause',
+  speed: 'Speed',
+  unit: 'Unit',
+  minutes: 'min',
+  quizScore: 'Your Score',
+  retryQuiz: 'Retry Quiz',
+  allOrNone: 'All-or-None Principle',
+  themeLight: 'Paper (Light)',
+  themeDark: 'Lab (Dark)',
+  language: 'Language',
+  reduceMotion: 'Reduce Motion',
+  resetProgress: 'Reset Progress',
+  resetConfirm: 'Are you sure you want to reset all your course progress?',
+  yesReset: 'Yes, Reset',
+  cancel: 'Cancel',
+};
+
+export type TranslationKey = keyof typeof en;

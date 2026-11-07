@@ -1,0 +1,50 @@
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { TranslationKey } from './en';
+
+export const he: Record<TranslationKey, string> = {
+  appName: 'ביוברס',
+  tagline: 'מעבדת ביולוגיה אינטראקטיבית בתלת-ממד',
+  heroTitle: 'למדו ביולוגיה בתלת-ממד',
+  heroSubtitle: 'חקרו מולקולות, התעמקו בתא החי, והפעילו פוטנציאלי פעולה נוירונליים בסימולציות חיות בזמן אמת.',
+  startLearning: 'התחילו ללמוד',
+  continueLearning: 'המשיכו מהמקום בו עצרתם',
+  browseLessons: 'כל השיעורים',
+  modelsBrowser: 'קטלוג מודלים בתלת-ממד',
+  allLessons: 'שיעורים',
+  glossary: 'מילון מונחים',
+  settings: 'הגדרות',
+  searchPlaceholder: 'חיפוש שיעורים, אברונים, מונחים (לחצו / או ⌘K)...',
+  exploreTab: 'חקר תלת-ממד',
+  learnTab: 'למידה',
+  quizTab: 'בוחן',
+  wordsTab: 'מונחים',
+  markComplete: 'סמן כהושלם',
+  completed: 'הושלם',
+  nextLesson: 'השיעור הבא',
+  prevLesson: 'השיעור הקודם',
+  nextStep: 'שלב הבא',
+  prevStep: 'שלב קודם',
+  stepOf: 'שלב {current} מתוך {total}',
+  runSimulation: 'הפעל סימולציה',
+  resetSimulation: 'איפוס',
+  play: 'הפעל',
+  pause: 'השהה',
+  speed: 'מהירות',
+  unit: 'יחידה',
+  minutes: 'דק׳',
+  quizScore: 'הציון שלך',
+  retryQuiz: 'נסה שוב',
+  allOrNone: 'עקרון הכל או כלום',
+  themeLight: 'נייר (בהיר)',
+  themeDark: 'מעבדה (כהה)',
+  language: 'שפה',
+  reduceMotion: 'הפחתת תנועה',
+  resetProgress: 'איפוס התקדמות',
+  resetConfirm: 'האם אתם בטוחים שברצונכם לאפס את כל התקדמות הקורס?',
+  yesReset: 'כן, אפס',
+  cancel: 'ביטול',
+};

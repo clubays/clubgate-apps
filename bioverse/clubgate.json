@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "id": "bioverse",
+  "name": "Bioverse",
+  "version": "0.1.0",
+  "description": "Free, interactive 3D biology course. Explore the cell, DNA, neurons, body systems, and run live biological simulations.",
+  "entry": "index.html",
+  "scopes": ["user.read", "profile.read"]
+}
