@@ -10,7 +10,8 @@ import "@fontsource/stix-two-text/latin-400-italic.css";
 import "katex/dist/katex.min.css";
 import katex from "katex";
 import renderMathInElement from "katex/contrib/auto-render";
-import * as math from "mathjs";
+import { create, evaluateDependencies, derivativeDependencies } from "mathjs";
+const math = create({ evaluateDependencies, derivativeDependencies });
 
 // only needed if the rest of your code uses the old CDN globals
 window.katex = katex;
