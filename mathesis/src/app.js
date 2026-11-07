@@ -1,3 +1,22 @@
+import "@fontsource/inter/latin-400.css";
+import "@fontsource/inter/latin-500.css";
+import "@fontsource/inter/latin-600.css";
+import "@fontsource/jetbrains-mono/latin-400.css";
+import "@fontsource/jetbrains-mono/latin-500.css";
+import "@fontsource/stix-two-text/latin-400.css";
+import "@fontsource/stix-two-text/latin-600.css";
+import "@fontsource/stix-two-text/latin-400-italic.css";
+
+import "katex/dist/katex.min.css";
+import katex from "katex";
+import renderMathInElement from "katex/contrib/auto-render";
+import * as math from "mathjs";
+
+// only needed if the rest of your code uses the old CDN globals
+window.katex = katex;
+window.renderMathInElement = renderMathInElement;
+window.math = math;
+
 import { CHAPTERS_DIFF } from "./chapters-diff.js";
 import { CHAPTERS_INT } from "./chapters-int.js";
 import { WIDGET_REGISTRY } from "./widgets.js";
