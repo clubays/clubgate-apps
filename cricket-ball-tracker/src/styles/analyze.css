@@ -1,0 +1,68 @@
+/* Layout styles for Analyze page desktop 3-region and mobile bottom sheet */
+
+.analyze-container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 65px);
+  background: var(--ink);
+  overflow: hidden;
+}
+
+.analyze-main {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.video-stage-wrapper {
+  flex: 1;
+  position: relative;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  user-select: none;
+}
+
+.analyze-sidebar {
+  width: 380px;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.timeline-bar {
+  height: 90px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+/* Mobile responsive bottom-sheet (<= 820px) */
+@media (max-width: 820px) {
+  .analyze-main {
+    flex-direction: column;
+  }
+  .analyze-sidebar {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-height: 55vh;
+    border-top: 2px solid var(--accent);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.6);
+    border-radius: 16px 16px 0 0;
+  }
+  .timeline-bar {
+    margin-bottom: 120px;
+  }
+}

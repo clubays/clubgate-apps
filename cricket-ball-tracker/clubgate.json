@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "id": "cricket-ball-tracker",
+  "name": "Cricket Ball Tracker",
+  "version": "0.1.0",
+  "description": "A Clubays application, clubgate",
+  "entry": "index.html",
+  "scopes": [
+    "user.read",
+    "profile.read"
+  ]
+}
