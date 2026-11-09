@@ -1,0 +1,2 @@
+minimumReleaseAgeExclude:
+  - '@clubays/clubgate-sdk@0.2.0'
