@@ -62,6 +62,9 @@ export const SlopeFieldWidget: React.FC<SlopeFieldWidgetProps> = ({
 
   const activeSys = systems[pKey];
 
+  const ptRef = useRef({ x: x0, y: y0 });
+  ptRef.current = { x: x0, y: y0 };
+
   useEffect(() => {
     if (!containerRef.current) return;
     const plot = new Plot(containerRef.current, activeSys.bounds);
@@ -75,10 +78,10 @@ export const SlopeFieldWidget: React.FC<SlopeFieldWidgetProps> = ({
       const sx = e.clientX - rect.left;
       const sy = e.clientY - rect.top;
       const w = plot.toWorld(sx, sy);
-      const curScreen = plot.toScreen(x0, y0);
+      const curScreen = plot.toScreen(ptRef.current.x, ptRef.current.y);
       const dist = Math.hypot(sx - curScreen.x, sy - curScreen.y);
 
-      if (dist < 20 || e.shiftKey) {
+      if (dist < 22 || e.shiftKey) {
         isDraggingPt = true;
         setX0(w.x);
         setY0(w.y);
@@ -113,6 +116,12 @@ export const SlopeFieldWidget: React.FC<SlopeFieldWidgetProps> = ({
       window.removeEventListener("themechange", handleTheme);
       plot.destroy();
     };
+  }, []);
+
+  useEffect(() => {
+    if (plotRef.current) {
+      plotRef.current.setBounds(activeSys.bounds);
+    }
   }, [pKey]);
 
   useEffect(() => {

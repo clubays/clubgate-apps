@@ -55,6 +55,12 @@ export const ExtremaWidget: React.FC = () => {
       window.removeEventListener("themechange", handleTheme);
       plot.destroy();
     };
+  }, []);
+
+  useEffect(() => {
+    if (plotRef.current) {
+      plotRef.current.setBounds(data.bounds);
+    }
   }, [fKey]);
 
   useEffect(() => {

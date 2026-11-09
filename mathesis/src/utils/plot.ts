@@ -57,6 +57,10 @@ export class Plot {
     this.bounds = { ...this.initialBounds };
     this.boundsStart = { ...this.bounds };
 
+    // Clean up any stale canvas elements from this container
+    const existing = this.container.querySelectorAll("canvas");
+    existing.forEach((c) => c.remove());
+
     this.canvas = document.createElement("canvas");
     this.ctx = this.canvas.getContext("2d")!;
     this.container.appendChild(this.canvas);
@@ -576,8 +580,19 @@ export class Plot {
     this.ctx.restore();
   }
 
+  setBounds(bounds: Partial<Bounds>) {
+    if (bounds.xmin !== undefined) this.initialBounds.xmin = this.bounds.xmin = bounds.xmin;
+    if (bounds.xmax !== undefined) this.initialBounds.xmax = this.bounds.xmax = bounds.xmax;
+    if (bounds.ymin !== undefined) this.initialBounds.ymin = this.bounds.ymin = bounds.ymin;
+    if (bounds.ymax !== undefined) this.initialBounds.ymax = this.bounds.ymax = bounds.ymax;
+    this.requestDraw();
+  }
+
   destroy() {
     if (this._raf) cancelAnimationFrame(this._raf);
     if (this.resizeObserver) this.resizeObserver.disconnect();
+    if (this.canvas && this.canvas.parentNode) {
+      this.canvas.remove();
+    }
   }
 }

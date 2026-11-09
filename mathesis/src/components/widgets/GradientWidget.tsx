@@ -57,6 +57,9 @@ export const GradientWidget: React.FC<GradientWidgetProps> = ({
 
   const active = surfaces[preset];
 
+  const probeRef = useRef({ x: probeX, y: probeY });
+  probeRef.current = { x: probeX, y: probeY };
+
   useEffect(() => {
     if (!containerRef.current) return;
     const plot = new Plot(containerRef.current, { ...active.bounds, equal: true });
@@ -70,7 +73,7 @@ export const GradientWidget: React.FC<GradientWidgetProps> = ({
       const sx = e.clientX - rect.left;
       const sy = e.clientY - rect.top;
       const w = plot.toWorld(sx, sy);
-      const curScr = plot.toScreen(probeX, probeY);
+      const curScr = plot.toScreen(probeRef.current.x, probeRef.current.y);
       const dist = Math.hypot(sx - curScr.x, sy - curScr.y);
 
       if (dist < 25 || e.shiftKey) {
@@ -108,6 +111,12 @@ export const GradientWidget: React.FC<GradientWidgetProps> = ({
       window.removeEventListener("themechange", handleTheme);
       plot.destroy();
     };
+  }, []);
+
+  useEffect(() => {
+    if (plotRef.current) {
+      plotRef.current.setBounds(active.bounds);
+    }
   }, [preset]);
 
   useEffect(() => {

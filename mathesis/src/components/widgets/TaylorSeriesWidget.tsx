@@ -171,6 +171,12 @@ export const TaylorSeriesWidget: React.FC<TaylorSeriesWidgetProps> = ({
       window.removeEventListener("themechange", handleTheme);
       plot.destroy();
     };
+  }, []);
+
+  useEffect(() => {
+    if (plotRef.current) {
+      plotRef.current.setBounds(active.bounds);
+    }
   }, [pKey]);
 
   useEffect(() => {
@@ -249,8 +255,14 @@ export const TaylorSeriesWidget: React.FC<TaylorSeriesWidgetProps> = ({
           <select
             value={pKey}
             onChange={(e) => {
-              setPKey(e.target.value as any);
+              const val = e.target.value as any;
+              setPKey(val);
               setOrder(initialN);
+              if (val === "geom" || val === "ln") {
+                setProbeX(0.5);
+              } else {
+                setProbeX(1.5);
+              }
             }}
             className="h-8.5 px-2.5 text-xs bg-[var(--panel)] border border-[var(--line)] rounded text-[var(--ink)] outline-none focus:border-[var(--accent)]"
           >
