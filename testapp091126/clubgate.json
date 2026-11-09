@@ -1,0 +1,15 @@
+{
+  "$schema": "https://asset-ark.clubays.com/schemas/clubgate/v1.json",
+  "schemaVersion": 1,
+  "id": "testapp091126",
+  "name": "Testapp091126",
+  "version": "0.1.0",
+  "description": "A Clubgate application",
+  "entry": "index.html",
+  "access": "open",
+  "engine": 1,
+  "scopes": [
+    "user.read",
+    "profile.read"
+  ]
+}
