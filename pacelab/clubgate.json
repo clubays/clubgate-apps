@@ -1,0 +1,10 @@
+{
+  "$schema": "https://asset-ark.clubays.com/schemas/clubgate/v1.json",
+  "schemaVersion": 1,
+  "id": "pacelab",
+  "name": "PaceLab - Cricket Ball Speed Tracker",
+  "version": "0.1.0",
+  "description": "On-device cricket ball speed tracker using high-speed computer vision, Kalman filtering, and precise gate timing.",
+  "entry": "index.html",
+  "scopes": ["user.read", "profile.read"]
+}
